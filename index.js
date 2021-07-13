@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const { Client } = require("discord.js");
+const { Client, MessageEmbed } = require("discord.js");
 const fetch = require("node-fetch");
 const client = new Client();
 const PREFIX = "a!";
@@ -32,6 +32,11 @@ client.on("message", async message => {
     if (message.author.bot || !message.guild) return;
     if (message.content.indexOf(PREFIX) !== 0) return;
 
+    
+        const embed1 = new MessageEmbed()
+      .setTitle('Youtube Together Started!')
+      .setColor(0xff0000)
+      .setDescription(`Click [here](https://discord.gg/${invite.code}) to start **Youtube Together**`);
     const args = message.content.slice(PREFIX.length).trim().split(" ");
     const cmd = args.shift().toLowerCase();
 
@@ -60,7 +65,7 @@ client.on("message", async message => {
             .then(res => res.json())
             .then(invite => {
                 if (invite.error || !invite.code) return message.channel.send("❌ | Could not start **YouTube Together**!");
-                message.channel.send(`✅ | Click here to start **YouTube Together** in ${channel.name}: <https://discord.gg/${invite.code}>`);
+                message.channel.send(embed1);
             })
             .catch(e => {
                 message.channel.send("❌ | Could not start **YouTube Together**!");
