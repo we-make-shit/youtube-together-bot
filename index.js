@@ -17,6 +17,9 @@ const ACTIVITIES = {
     "youtube": {
         id: "755600276941176913",
         name: "YouTube Together"
+    "chess": {
+        id: "832012586023256104",
+        name: "Chess"
     },
     "fishington": {
         id: "814288819477020702",
