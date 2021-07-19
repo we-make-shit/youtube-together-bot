@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const { oneLine } = require('common-tags');
 const { Client, MessageEmbed } = require("discord.js");
 const fetch = require("node-fetch");
 const client = new Client();
@@ -17,6 +17,7 @@ const ACTIVITIES = {
     "youtube": {
         id: "755600276941176913",
         name: "YouTube Together"
+    },
     "chess": {
         id: "832012586023256104",
         name: "Chess"
@@ -76,8 +77,15 @@ client.on("message", async message => {
         })
             .then(res => res.json())
             .then(invite => {
-                if (invite.error || !invite.code) return message.channel.send(`Could not start **${activity.name}**!`);
-                message.channel.send(`Click here to start **${activity.name}** in **${channel.name}**: <https://discord.gg/${invite.code}>`);
+                if (invite.error || !invite.code) 
+                return message.channel.send(`Could not start **${activity.name}**!`);
+        const embed2 = new MessageEmbed()
+      .setTitle('Started Activity!')
+      .setColor('04ff00')
+      .setDescription(oneLine`
+            Click [here](https://discord.gg/${invite.code}) to join the activity!
+         `);
+                message.channel.send(embed2);
             })
             .catch(e => {
                 message.channel.send(`❌ | Could not start **${activity.name}**!`);
